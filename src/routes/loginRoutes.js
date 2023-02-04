@@ -1,6 +1,5 @@
 import express from 'express'
-import { getPassLoggin } from '../controllers/loginController'
-import bc from 'bcrypt'
+import { getPassLoggin } from '../controllers/loginController.js'
 
 const loginRoutes = express.Router()
 

@@ -21,7 +21,7 @@ async function getUsers(req, res) {
 async function findById(req,res){
   const{id} = req.params;
   await pool
-    .query(`SELECT * FROM almimaindb.userDB where id = ${id}`)
+    .query(`SELECT * FROM almimaindb.userDB where id = '${id}';`)
     .then((result) => {
       res.status(200).send(result?.rows);
     })

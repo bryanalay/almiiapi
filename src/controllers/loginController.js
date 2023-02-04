@@ -1,7 +1,7 @@
-import { findUserAndPassword } from "../db/loginDbController.js";
+import { login } from "../db/loginDbController.js";
 
 async function getPassLoggin(req,res){
-    await findUserAndPassword(req,res)
+    await login(req,res)
 }
 
 export { getPassLoggin }

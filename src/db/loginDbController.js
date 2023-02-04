@@ -1,36 +1,36 @@
 import { pool } from "./pgdb.js";
+import bc from 'bcrypt'
+import { saltDB } from "./saltBcrypt.js";
+import { authSign } from "../auth/index.js";
 
 async function login(req, res) {
-  const { username, password } = req.body;  
+  const { username, password } = req.body;
+  let hashedPass = await bc.hash(password,(await saltDB()).rows[0].salto)
   try {
     const pass = await findUserAndPassword(username)
-    if(password == pass){
-        res.status(200).send({
-            message : "Logged pa"
-        })
+    const token = authSign({
+      username : username,
+      password: hashedPass,
+    })
+    if (hashedPass == pass.rows[0].password) {
+      res.status(200).send({
+        message: "Logged pa",
+        token: token
+      });
+    }else{
+      throw new Error('User or Password error')
     }
   } catch (error) {
     res.status(404).send({
-        message : error.message
-    })
+      message: error.message,
+    });
   }
 }
 
 async function findUserAndPassword(username) {
-  let {rows} = await pool(
+  return pool.query(
     `select password from almimaindb.userdb where username='${username}'`
-  ) 
-
-  switch (rows.length) {
-    case 1:
-        return {
-            password: rows[0].password,
-          };
-    case 0:
-        throw new Error('User not found')
-    default:
-        break;
-  }
+  )
 }
 
-export { findUserAndPassword };
+export { login };
