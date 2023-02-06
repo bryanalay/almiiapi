@@ -8,7 +8,7 @@ import { likeRoutes } from "./routes/likeRoutes.js";
 const router = (app) => {
   const route = express.Router();
   app.use("/api/v1", route);
-
+  route.get('/a',(req,res)=>{res.send({message:'holamundo'})})
   route.use("/user", userRoutes);
   route.use("/salt", saltRoutes);
   route.use("/login", loginRoutes);
