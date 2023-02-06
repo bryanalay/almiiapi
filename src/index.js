@@ -9,6 +9,6 @@ app.use(express.json())
 
 router(app)
 
-app.listen(3050 ||`${process.env.PORT}`,()=>{
-    console.log('Connect to 3050');
+app.listen(3000 ||process.env.PORT,()=>{
+    console.log(`Running ${process.env.PORT || 3000}`);
 })
