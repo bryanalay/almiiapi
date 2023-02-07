@@ -61,4 +61,17 @@ async function selectPostByid(req,res){
     })
 }
 
-export { getPosts, insertPost, deletePost, selectPostByid }
+async function selectPostByUserId(req,res){
+    const { id } = req.params
+    await pool.query(`select id, body, fecha from almimaindb.postdb where user_id = '${id}';`)
+    .then((result)=>{
+        const posts = {
+            user_id: id,
+            posts: result.rows
+        }
+        res.status(200).send(posts)
+    })
+}
+
+
+export { getPosts, insertPost, deletePost, selectPostByid, selectPostByUserId }

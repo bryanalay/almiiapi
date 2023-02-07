@@ -1,4 +1,4 @@
-import { getPosts, insertPost, deletePost, selectPostByid } from "../db/postsDBController.js";
+import { getPosts, insertPost, deletePost, selectPostByid, selectPostByUserId } from "../db/postsDBController.js";
 
 async function getAllPosts(req,res){
     await getPosts(req,res)
@@ -16,4 +16,8 @@ async function getPostById(req,res){
     await selectPostByid(req,res)
 }
 
-export { getAllPosts, savePost, eliminatePost, getPostById }
+async function getPostByUserId(req,res){
+    await selectPostByUserId(req,res)
+}
+
+export { getAllPosts, savePost, eliminatePost, getPostById, getPostByUserId }
