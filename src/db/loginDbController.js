@@ -9,12 +9,14 @@ async function login(req, res) {
   try {
     const pass = await findUserAndPassword(username)
     const token = authSign({
+      userid: pass.rows[0].id, 
       username : username,
       password: hashedPass,
     })
     if (hashedPass == pass.rows[0].password) {
       res.status(200).send({
         message: "Logged pa",
+        userid: pass.rows[0].id,
         token: token
       });
     }else{
@@ -29,7 +31,7 @@ async function login(req, res) {
 
 async function findUserAndPassword(username) {
   return pool.query(
-    `select password from almimaindb.userdb where username='${username}'`
+    `select password, id from almimaindb.userdb where username='${username}'`
   )
 }
 

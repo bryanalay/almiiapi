@@ -27,11 +27,12 @@ function decodeHeader(req) {
 function authenticateJWT(req, res, next) {
   try {
     const headerDecoded = decodeHeader(req);
-    const { username } = headerDecoded;
+    const { username, userid } = headerDecoded;
     if (username) {
       res.status(200).send({
         message: "si estas autorizado pa",
       });
+      req.body.user_logged = userid
       next();
     } else {
       throw new Error("No tienes acceso");
