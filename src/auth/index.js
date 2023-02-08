@@ -19,7 +19,7 @@ function getToken(req) {
       return tk;
     }
   }else{
-    throw new Error('No hay token')
+    throw new Error('No estas autorizado para hacer esto')
   }
 }
 
