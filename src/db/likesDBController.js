@@ -27,16 +27,16 @@ async function selectLikesByPostId(req,res){
 }
 
 async function insertLike(req,res){
-    const { postid, userid } = req.body
+    const { postid, user_logged } = req.body
     const id = nanoid(4)
-    console.log(id, postid, userid);
+    console.log(id, postid, user_logged);
     await pool.query(`insert into almimaindb.likesdb(id,post_id,user_id)
-    values('${id}','${postid}','${userid}');`)
+    values('${id}','${postid}','${user_logged}');`)
     .then((result)=>{
         res.status(201).send({
             Message : 'Liked',
             post_liked: postid,
-            byUser: userid,
+            byUser: user_logged,
             id_like: id
         })
     })

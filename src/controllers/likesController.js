@@ -1,7 +1,7 @@
 import { insertLike, selectLikes, deleteLike, selectLikesByPostId } from "../db/likesDBController.js"
 
 async function getLikes(req,res){
-    selectLikes(req,res)
+    await selectLikes(req,res)
 }
 
 async function postLike(req,res){

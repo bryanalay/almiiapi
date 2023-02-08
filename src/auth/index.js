@@ -11,17 +11,20 @@ function verifyToken(tk) {
 
 function getToken(req) {
   let bearer = req.headers.authorization;
-  if (bearer.indexOf("Bearer ") == -1) {
-    throw new Error("Not token recived");
-  } else {
-    const tk = bearer.replace("Bearer ", "");
-    return tk;
+  if(bearer){
+    if (bearer?.indexOf("Bearer ") == -1) {
+      throw new Error("Not token recived");
+    } else {
+      const tk = bearer?.replace("Bearer ", "");
+      return tk;
+    }
+  }else{
+    throw new Error('No hay token')
   }
 }
 
 function decodeHeader(req) {
-  let tk = getToken(req);
-  return verifyToken(tk);
+  return verifyToken(getToken(req));
 }
 
 function authenticateJWT(req, res, next) {
@@ -29,36 +32,16 @@ function authenticateJWT(req, res, next) {
     const headerDecoded = decodeHeader(req);
     const { username, userid } = headerDecoded;
     if (username) {
-      res.status(200).send({
-        message: "si estas autorizado pa",
-      });
       req.body.user_logged = userid
       next();
     } else {
-      throw new Error("No tienes acceso");
-    }
-  } catch (error) {
-    res.status(404).send({
-      message: error.message,
-      token: headerDecoded,
-    });
-  }
-}
-
-function authTest(req, res, next) {
-  const headerDecoded = decodeHeader(req);
-  console.log("into authtest");
-  try {
-    if (headerDecoded) {
-      next();
-    } else {
-      throw new Error("No authorized");
+      throw new Error("No estas autorizado para hacer esto");
     }
   } catch (error) {
     res.status(401).send({
-      message: "Not authorized pa",
+      message: error.message,
     });
   }
 }
 
-export { authSign, authenticateJWT, authTest };
+export { authSign, authenticateJWT };
