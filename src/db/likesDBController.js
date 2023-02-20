@@ -14,8 +14,8 @@ async function selectLikes(req,res){
 }
 
 async function selectLikesByPostId(req,res){
-    const { postid } = req.body
-    await pool.query(`select user_id from almimaindb.likesdb where post_id = '${postid}';`)
+    const { id } = req.params
+    await pool.query(`select user_id from almimaindb.likesdb where post_id = '${id}';`)
     .then((result)=>{
         res.status(200).send(result.rows)
     })
@@ -48,7 +48,7 @@ async function insertLike(req,res){
 }
 
 async function deleteLike(req,res){
-    const { id } = req.body
+    const { id } = req.params
     await pool.query(`delete from almimaindb.likesdb where id = '${id}';`)
     .then((result)=>{
         res.status(200).send({

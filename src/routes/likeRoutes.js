@@ -4,8 +4,8 @@ import { getLikes, postLike, dropLike, getLikedBy } from '../controllers/likesCo
 const likeRoutes = Express.Router()
 
 likeRoutes.get('/',getLikes)
-likeRoutes.get('/post', getLikedBy)
+likeRoutes.get('/post/:id', getLikedBy)
 likeRoutes.post('/post',postLike)
-likeRoutes.delete('/',dropLike)
+likeRoutes.delete('/:id',dropLike)
 
 export { likeRoutes }

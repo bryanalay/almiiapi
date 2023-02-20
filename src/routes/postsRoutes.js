@@ -5,8 +5,8 @@ const postsRoutes = Express.Router()
 
 postsRoutes.get('/',getAllPosts)
 postsRoutes.get('/:id',getPostByUserId)
-postsRoutes.get('/search', getPostById)
-postsRoutes.delete('/delete', eliminatePost)
+postsRoutes.get('/search/:id', getPostById)
+postsRoutes.delete('/delete/:id', eliminatePost)
 
 postsRoutes.post('/', savePost)
 
