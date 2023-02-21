@@ -26,13 +26,17 @@ async function insertPost(req, res) {
   const fecha = new Date().toLocaleString();
   await pool
     .query(
-      `insert into almimaindb.postdb(id,user_id,body,fecha) 
-    values ('${id}','${userid}','${data}','${fecha}');`
+    //   `insert into almimaindb.postdb(id,user_id,body,fecha) 
+    // values ('${id}','${userid}','${data}','${fecha}');`
+    `INSERT INTO almimaindb.postdb (id,user_id, body,fecha)
+    VALUES ('${id}','${userid}','${data}','${fecha}')
+    RETURNING (SELECT username FROM almimaindb.userdb WHERE id = '${userid}');`
     )
     .then((result) => {
       res.status(201).send({
         message: "Posted successfully",
         postid: id,
+        username: result.rows[0].username
       });
     })
     .catch((err) => {
