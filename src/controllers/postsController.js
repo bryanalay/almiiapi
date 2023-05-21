@@ -1,4 +1,4 @@
-import { getPosts, insertPost, deletePost, selectPostByid, selectPostByUserId } from "../db/postsDBController.js";
+import { getPosts, insertPost, deletePost, selectPostByid, selectPostByUserId, getUsernamesByPostId } from "../db/postsDBController.js";
 
 async function getAllPosts(req,res){
     await getPosts(req,res)
@@ -20,4 +20,8 @@ async function getPostByUserId(req,res){
     await selectPostByUserId(req,res)
 }
 
-export { getAllPosts, savePost, eliminatePost, getPostById, getPostByUserId }
+async function getUsernamesLikesById(req,res){
+    await  getUsernamesByPostId(req,res)
+}
+
+export { getAllPosts, savePost, eliminatePost, getPostById, getPostByUserId, getUsernamesLikesById }

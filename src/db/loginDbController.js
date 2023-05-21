@@ -8,15 +8,17 @@ async function login(req, res) {
   let hashedPass = await bc.hash(password,(await saltDB()).rows[0].salto)
   try {
     const pass = await findUserAndPassword(username)
+    const pa = pass[1]
     const token = authSign({
-      userid: pass.rows[0].id, 
+      userid: pa.rows[0].id, 
       username : username,
       password: hashedPass,
     })
-    if (hashedPass == pass.rows[0].password) {
+    if (hashedPass == pa.rows[0].password) {
       res.status(200).send({
         message: "Logged pa",
-        userid: pass.rows[0].id,
+        userid: pa.rows[0].id,
+        username:pa.rows[0].username,
         token: token
       });
     }else{
@@ -30,9 +32,11 @@ async function login(req, res) {
 }
 
 async function findUserAndPassword(username) {
-  return pool.query(
-    `select password, id from almimaindb.userdb where username='${username}'`
-  )
+  const query = `
+  set search_path to almimaindb;  
+  select * from login('${username}');
+  `
+  return pool.query(query)
 }
 
 export { login };

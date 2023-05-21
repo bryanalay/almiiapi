@@ -15,4 +15,10 @@ const secretPhrase = process.env.SECRET_PG
 
 const pool = new pg.Pool(uri);    
 
-export { pool, secretPhrase };
+
+ const query = (query) => {
+    const qry = 'SET search_path to almimaindb;'
+    return pool.query(qry+query)
+}
+
+export { pool, query, secretPhrase };

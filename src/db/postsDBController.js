@@ -1,23 +1,32 @@
 import { nanoid } from "nanoid";
-import { pool } from "./pgdb.js";
+import { pool,query } from "./pgdb.js";
 
 async function getPosts(req, res) {
-  await pool
-    .query(
-      `select almimaindb.postdb.id, almimaindb.userdb.id as user_id,
-    almimaindb.postdb.body, almimaindb.postdb.fecha, 
-    almimaindb.userDB.username from almimaindb.postdb 
-    join almimaindb.userDB 
-    on almimaindb.postDB.user_id = almimaindb.userDB.id;`
-    )
+  /*const query = `
+  SET search_path to almimaindb;
+  select * FROM getPosts();
+  `;*/
+  const qre = 'select * FROM getPosts();'
+  await query(qre)
+  .then((result) => {
+    res.status(200).send(result[1]?.rows);
+  })
+  .catch((err) => {
+    res.status(404).send({
+      message: err.message,
+    });
+  });
+
+  /*await pool
+    .query(query)
     .then((result) => {
-      res.status(200).send(result?.rows);
+      res.status(200).send(result[1]?.rows);
     })
     .catch((err) => {
       res.status(404).send({
         message: err.message,
       });
-    });
+    });*/
 }
 
 async function insertPost(req, res) {
@@ -90,4 +99,50 @@ async function selectPostByUserId(req, res) {
     });
 }
 
-export { getPosts, insertPost, deletePost, selectPostByid, selectPostByUserId };
+//usando sp
+async function getUsernamesByPostId(req, res) {
+  //const id = req.params.id
+  const id = "39y1oM";
+  const query = `
+  SET search_path to almimaindb;
+  select * FROM getLikesByPostId('${id}');`;
+  await pool
+    .query(query)
+    .then((result) => {
+      res.status(200).send(result[1].rows);
+    })
+    .catch((err) => {
+      res.status(404).send({
+        Message: err.Message,
+      });
+    });
+}
+
+export {
+  getPosts,
+  insertPost,
+  deletePost,
+  selectPostByid,
+  selectPostByUserId,
+  getUsernamesByPostId,
+};
+/*
+[
+  {
+    id: "GZFGqC",
+    user_id: "gpTg",
+    body: "post f",
+    fecha: "3/31/2023, 10:13:23 PM",
+    username: "user",
+    likes: ["username1", "username2", "username3"],
+  },
+  {
+    id: "zbxvis",
+    user_id: "gpTg",
+    body: "hola",
+    fecha: "4/26/2023, 9:38:20 PM",
+    username: "user",
+    likes: ["username2", "username4", "username6"],
+  },
+];
+*/
