@@ -1,4 +1,4 @@
-import { query } from "../config/db";
+import { query } from "../config/db.js";
 
 const likesQuery = {
   selectLikes: async () => {
