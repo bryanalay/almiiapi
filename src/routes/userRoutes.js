@@ -1,21 +1,16 @@
-import express from 'express'
-import { getAllUsers, getUserById, getUserByUser, postUser } from '../controllers/userController.js'
-import { authenticateJWT} from '../auth/index.js'
+import express from "express";
+import userController from "../controllers/userController.js";
+import { authenticateJWT } from "../auth/index.js";
 
-const userRoutes = express.Router()
+const { deleteUserById, getUserById, getUserByUsername, getUsers, insertUser } =
+  userController;
+
+const userRoutes = express.Router();
 //------------/user/---------------//
-userRoutes.get('/', getAllUsers)
+userRoutes.get("/", getUsers);
+userRoutes.get("/:id", getUserById);
+userRoutes.get("/:username", getUserByUsername)
+userRoutes.post("/", insertUser);
+userRoutes.delete("/:id", deleteUserById);
 
-userRoutes.get('/id/:id', getUserById)
-//userRoutes.get('/:username', getUserByUser)
-// userRoutes.get('/test',authTest,(req,res)=>{
-//     console.log('after next');
-//     res.status(200).send({
-//         message: 'Si estas autorizado pa'
-//     })
-// })
-
-
-userRoutes.post('/', postUser)
-
-export { userRoutes }
+export { userRoutes };

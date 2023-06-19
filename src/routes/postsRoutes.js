@@ -1,14 +1,22 @@
-import Express from 'express'
-import { getAllPosts, savePost, eliminatePost, getPostById, getPostByUserId, getUsernamesLikesById } from '../controllers/postsController.js'
+import Express from "express";
+import postController from "../controllers/postsController.js";
 
-const postsRoutes = Express.Router()
+const {
+  getPosts,
+  getPostById,
+  getPostsByUserId,
+  getUsernamesByPostId,
+  insertPost,
+  deletePost,
+} = postController;
 
-postsRoutes.get('/',getAllPosts)
-postsRoutes.get('/:id',getPostByUserId)
-postsRoutes.get('/search/:id', getPostById)
-postsRoutes.get('/likes/:id',getUsernamesLikesById)
-postsRoutes.delete('/delete/:id', eliminatePost)
+const postsRoutes = Express.Router();
 
-postsRoutes.post('/', savePost)
+postsRoutes.get("/", getPosts);
+postsRoutes.get("/:id", getPostsByUserId);
+postsRoutes.get("/search/:id", getPostById);
+postsRoutes.get("/likes/:id", getUsernamesByPostId);
+postsRoutes.post("/", insertPost);
+postsRoutes.delete("/delete/:id", deletePost);
 
-export { postsRoutes }
+export { postsRoutes };

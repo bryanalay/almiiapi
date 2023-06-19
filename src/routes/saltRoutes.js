@@ -1,9 +1,11 @@
-import express from 'express'
-import { getSalt, postSalt } from '../controllers/saltController.js'
+import express from "express";
+import saltController from "../controllers/saltController.js";
 
-const saltRoutes = express.Router()
+const { getSalt, postSalt } = saltController;
 
-saltRoutes.get('/', getSalt)
-saltRoutes.post('/', postSalt)
+const saltRoutes = express.Router();
 
-export { saltRoutes }
+saltRoutes.get("/", getSalt);
+saltRoutes.post("/", postSalt);
+
+export { saltRoutes };

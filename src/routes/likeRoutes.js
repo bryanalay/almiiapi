@@ -1,11 +1,13 @@
-import Express from 'express'
-import { getLikes, postLike, dropLike, getLikedBy } from '../controllers/likesController.js'
+import Express from "express";
+import likesController from "../controllers/likesController.js";
 
-const likeRoutes = Express.Router()
+const { deleteLike, getLikes, getLikesByPostId, insertLikes } = likesController;
 
-likeRoutes.get('/',getLikes)
-likeRoutes.get('/post/:id', getLikedBy)
-likeRoutes.post('/post',postLike)
-likeRoutes.delete('/:id',dropLike)
+const likeRoutes = Express.Router();
 
-export { likeRoutes }
+likeRoutes.get("/", getLikes);
+likeRoutes.get("/post/:id", getLikesByPostId);
+likeRoutes.post("/", insertLikes);
+likeRoutes.delete("/:id", deleteLike);
+
+export { likeRoutes };

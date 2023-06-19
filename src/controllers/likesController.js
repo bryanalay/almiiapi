@@ -1,19 +1,72 @@
-import { insertLike, selectLikes, deleteLike, selectLikesByPostId } from "../db/likesDBController.js"
+import likesQuery from "../db/likesQuery.js";
+import { nanoid } from "nanoid";
 
-async function getLikes(req,res){
-    await selectLikes(req,res)
-}
+const likesController = {
+  getLikes: async (req, res) => {
+    try {
+      const result = await likesQuery.selectLikes();
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(404).json({
+        status: "404",
+        message: error.message,
+      });
+    }
+  },
 
-async function postLike(req,res){
-    await insertLike(req,res)
-}
+  getLikesByPostId: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await likesQuery.selectLikesByPostId(id);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(404).json({
+        status: "404",
+        message: error.message,
+      });
+    }
+  },
 
-async function dropLike(req,res){
-    await deleteLike(req,res)
-}
+  insertLikes: async (req, res) => {
+    try {
+      const { postid, user_logged } = req.body;
+      const id = nanoid(4);
+      const like = {
+        id: id,
+        postid: postid,
+        userlogged: user_logged,
+      };
+      const result = await likesQuery.insertLike(like);
+      res.status(200).json({
+        like,
+        Message: "Post Likeado!!",
+      });
+    } catch (error) {
+      res.status(404).json({
+        status: "404",
+        message: error.message,
+      });
+    }
+  },
 
-async function getLikedBy(req,res){
-    await selectLikesByPostId(req,res)
-}
+  deleteLike: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await likesQuery.selectLikesByPostId(id);
+      if (result.length > 0) {
+        const result = await likesQuery.deleteLike(id);
+        res.status(200).json({
+          Message: "Deleted succesfully",
+        });
+      } else {
+        throw new Error("Like inexistente!!");
+      }
+    } catch (error) {
+      res.status(200).json({
+        Message: "Usuario creado!!",
+      });
+    }
+  },
+};
 
-export { getLikes, postLike, dropLike, getLikedBy }
+export default likesController;

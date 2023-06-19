@@ -1,11 +1,22 @@
-import { insertSalt, findSalt } from "../db/saltBcrypt.js"
+import saltQuery from "../db/saltQuery.js";
 
-const postSalt = async (req,res)=>{
-    await insertSalt(req,res)
-}
+const saltController = {
+  postSalt: async (req, res) => {
+    try {
+      const salt = await saltQuery.insertSalt();
+      res.status(200).json({ salt });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  },
+  getSalt: async (req, res) => {
+    try {
+      const salt = await saltQuery.getSaltDB();
+      res.status(200).json({ salt });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  },
+};
 
-const getSalt = async (req,res)=>{
-    await findSalt(req,res)
-}
-
-export { postSalt, getSalt }
+export default saltController;
