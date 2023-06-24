@@ -5,6 +5,7 @@ import { loginRoutes } from "./routes/loginRoutes.js";
 import { postsRoutes } from "./routes/postsRoutes.js";
 import { likeRoutes } from "./routes/likeRoutes.js";
 import { authenticateJWT } from "./auth/index.js";
+import { sensorRoutes } from "./routes/sensorRoutes.js";
 
 const router = (app) => {
   const route = express.Router();
@@ -14,6 +15,7 @@ const router = (app) => {
   route.use("/user", userRoutes);
   route.use('/posts',postsRoutes)
   route.use("/like", authenticateJWT, likeRoutes);
+  route.use("/sensor", sensorRoutes)
   //route.use("/salt", authenticateJWT, saltRoutes);
 };
 
