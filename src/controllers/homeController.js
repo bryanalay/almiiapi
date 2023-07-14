@@ -7,7 +7,7 @@ const __dirname = dirname(__filename);
 const homeController = {
     getHome: (req,res)=>{
         try {            
-            res.sendFile(path.join(__dirname, '../pages/home.html'));
+            res.status(200).sendFile(path.join(__dirname, '../pages/home.html'));
         } catch (e) {
             console.log(e);
             res.status(404).send('es error')
@@ -15,7 +15,7 @@ const homeController = {
     },
     getDocumentation: (req,res)=>{
         try {
-            res.sendFile(path.join(__dirname, '../pages/documentation.html'))
+            res.status(200).sendFile(path.join(__dirname, '../pages/documentation.html'))
         } catch (e) {
             res.status(404).send(e)
         }
