@@ -16,8 +16,8 @@ const router = (app) => {
   route.use("/", homeRoutes)
   route.use("/login", loginRoutes);
   route.use("/user", userRoutes);
-  route.use("/posts",authenticateJWT, postsRoutes);
-  route.use("/like", authenticateJWT, likeRoutes);
+  route.use("/posts", postsRoutes);
+  route.use("/like",authenticateJWT, likeRoutes);
   route.use("/sensor", sensorRoutes);
   //route.use("/salt", authenticateJWT, saltRoutes);
 };

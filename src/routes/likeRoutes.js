@@ -8,6 +8,6 @@ const likeRoutes = Express.Router();
 likeRoutes.get("/", getLikes);
 likeRoutes.get("/post/:id", getLikesByPostId);
 likeRoutes.post("/", insertLikes);
-likeRoutes.delete("/:id", deleteLike);
+likeRoutes.delete("/", deleteLike);
 
 export { likeRoutes };

@@ -1,5 +1,4 @@
 import likesQuery from "../db/likesQuery.js";
-import { nanoid } from "nanoid";
 
 const likesController = {
   getLikes: async (req, res) => {
@@ -16,8 +15,12 @@ const likesController = {
 
   getLikesByPostId: async (req, res) => {
     try {
-      const { id } = req.params;
-      const result = await likesQuery.selectLikesByPostId(id);
+      const { postid, user_logged } = req.body;
+      const like = {
+        postid: postid,
+        userlogged: user_logged,
+      };
+      const result = await likesQuery.selectLikesByPostId(like);
       res.status(200).json(result);
     } catch (error) {
       res.status(404).json({
@@ -30,9 +33,7 @@ const likesController = {
   insertLikes: async (req, res) => {
     try {
       const { postid, user_logged } = req.body;
-      const id = nanoid(4);
       const like = {
-        id: id,
         postid: postid,
         userlogged: user_logged,
       };
@@ -51,10 +52,14 @@ const likesController = {
 
   deleteLike: async (req, res) => {
     try {
-      const { id } = req.params;
-      const result = await likesQuery.selectLikesByPostId(id);
+      const { postid, user_logged } = req.body;
+      const like = {
+        postid: postid,
+        userlogged: user_logged,
+      }
+      const result = await likesQuery.selectLikesByPostId(like);
       if (result.length > 0) {
-        const result = await likesQuery.deleteLike(id);
+        const result = await likesQuery.deleteLike(like);
         res.status(200).json({
           Message: "Deleted succesfully",
         });
@@ -63,7 +68,7 @@ const likesController = {
       }
     } catch (error) {
       res.status(200).json({
-        Message: "Usuario creado!!",
+        Message: "Nada que borrar!!",
       });
     }
   },

@@ -3,13 +3,13 @@ import { query } from "../config/db.js";
 
 const saltQuery = {
   getSaltDB: async () => {
-    const result = await query(`SELECT * FROM almimaindb.salt;`);
+    const result = await query(`SELECT * FROM salt;`);
     return result[1].rows[0].salto;
   },
 
   insertSalt: async () => {
     const salt = await bc.genSalt(5);
-    const qre = `INSERT INTO almimaindb.salt(salto) values('${salt}');`;
+    const qre = `INSERT INTO salt(salto) values('${salt}');`;
     const result = query(qre);
     return result[1];
   },

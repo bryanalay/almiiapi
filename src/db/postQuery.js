@@ -8,13 +8,13 @@ const postQuery = {
   },
 
   getPostById: async (id) => {
-    const qre = `select * from almimaindb.postdb where id = '${id}'`;
+    const qre = `select * from postdb where id = '${id}'`;
     const result = await query(qre);
     return result[1].rows;
   },
 
   getPostByUserId: async (id) => {
-    const qre = `select id, body, fecha from almimaindb.postdb where user_id = '${id}';`;
+    const qre = `select id, body, fecha from postdb where user_id = '${id}';`;
     const result = await query(qre);
     return result[1].rows;
   },
@@ -27,15 +27,15 @@ const postQuery = {
 
   insertPost: async (post) => {
     const { id, userid, data, fecha } = post;
-    const qre = `INSERT INTO almimaindb.postdb (id,user_id, body,fecha)
+    const qre = `INSERT INTO postdb (id,user_id, body,fecha)
   VALUES ('${id}','${userid}','${data}','${fecha}')
-  RETURNING (SELECT username FROM almimaindb.userdb WHERE id = '${userid}');`;
+  RETURNING (SELECT username FROM userdb WHERE id = '${userid}');`;
     const result = await query(qre);
     return result[1];
   },
 
   deletePost: async (id) => {
-    const qre = `delete from almimaindb.postdb where id = '${id}';`;
+    const qre = `delete from postdb where id = '${id}';`;
     const result = await query(qre);
     return result[1];
   },
