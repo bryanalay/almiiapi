@@ -7,6 +7,7 @@ import { likeRoutes } from './routes/likeRoutes.js'
 import { authenticateJWT } from './auth/index.js'
 import { sensorRoutes } from './routes/sensorRoutes.js'
 import { homeRoutes } from './routes/homeRoutes.js'
+import { commentsRouter } from './routes/commentsRoutes.js'
 
 const router = (app) => {
   const route = express.Router()
@@ -18,6 +19,7 @@ const router = (app) => {
   route.use('/posts', authenticateJWT, postsRoutes)
   route.use('/like', authenticateJWT, likeRoutes)
   route.use('/sensor', sensorRoutes)
+  route.use('/comment', commentsRouter)
   //route.use("/salt", authenticateJWT, saltRoutes);
 }
 
