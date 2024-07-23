@@ -1,30 +1,29 @@
-import pg from "pg";
-import dotenv from "dotenv";
+import pg from 'pg'
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
 const uri = {
   connectionString: process.env.PG_URI,
   ssl: {
-    rejectUnauthorized: false,
-  },
-};
+    rejectUnauthorized: false
+  }
+}
 
-const secretPhrase = process.env.SECRET_PG;
+const secretPhrase = process.env.SECRET_PG
 
-const pool = new pg.Pool(uri);
+const pool = new pg.Pool(uri)
 
 const query = (query) => {
-  const qry = "SET search_path to almimaindb;";
-  return pool.query(qry + query);
-};
+  const qry = 'SET search_path to almimaindb;'
+  return pool.query(qry + query)
+}
 
 //temrinar mas tarde
-const SP ={
+const SP = {
   userdb: {
     getUsers: 'geUsers()'
   }
 }
 
-
-export { query, secretPhrase };
+export { query, secretPhrase }
