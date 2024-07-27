@@ -9,7 +9,7 @@ const userRoutes = express.Router()
 //------------/user/---------------//
 userRoutes.get('/', authenticateJWT, getUsers)
 userRoutes.get('/:id', authenticateJWT, getUserById)
-userRoutes.get('/:username', authenticateJWT, getUserByUsername)
+userRoutes.get('/u/:username', authenticateJWT, getUserByUsername)
 userRoutes.post('/', insertUser)
 userRoutes.delete('/:id', authenticateJWT, deleteUserById)
 
