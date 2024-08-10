@@ -33,6 +33,29 @@ const userQuery = {
     const qre = `delete from userdb where id = '${id}';`
     const result = await query(qre)
     return result[1]
+  },
+
+  updateProfile: async (profile) => {
+    const { userid, fprofile, fbanner } = profile
+    const qre = `insert into profile (userid) values ('${userid}');`
+    const result = await query(qre)
+    return result[1]
+  },
+
+  updateAvatar: async (urlString, userid) => {
+    const qre = `UPDATE profile AS pf
+            SET fprofile = '${urlString}'
+            WHERE userid = '${userid}';`
+    const result = await query(qre)
+    return result[1]
+  },
+
+  updateBanner: async (urlString, userid) => {
+    const qre = `UPDATE profile AS pf
+            SET fbanner = '${urlString}'
+            WHERE userid = '${userid}';`
+    const result = await query(qre)
+    return result[1]
   }
 }
 

@@ -91,6 +91,55 @@ const userController = {
         message: error.message
       })
     }
+  },
+  updateProf: async (req, res) => {
+    try {
+      const { userid, fprofile, fbanner } = req.body
+      const profile = {
+        userid: userid,
+        fprofile: fprofile,
+        fbanner: fbanner
+      }
+      const result = await userQuery.updateProfile(profile)
+      res.status(200).json({
+        Message: 'Profile updated!!'
+      })
+    } catch (error) {
+      res.status(404).json({
+        status: '404',
+        message: error.message
+      })
+    }
+  },
+
+  updateAvatarProfile: async (req, res) => {
+    try {
+      const { urlString, userid } = req.body
+      const result = await userQuery.updateAvatar(urlString, userid)
+      res.status(200).json({
+        Message: 'Avatar updated!!'
+      })
+    } catch (error) {
+      res.status(404).json({
+        status: '404',
+        message: error.message
+      })
+    }
+  },
+
+  updateBannerProfile: async (req, res) => {
+    try {
+      const { urlString, userid } = req.body
+      const result = await userQuery.updateBanner(urlString, userid)
+      res.status(200).json({
+        Message: 'Avatar updated!!'
+      })
+    } catch (error) {
+      res.status(404).json({
+        status: '404',
+        message: error.message
+      })
+    }
   }
 }
 
