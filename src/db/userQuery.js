@@ -8,7 +8,11 @@ const userQuery = {
   },
 
   getUserById: async (id) => {
-    const qre = `SELECT id, username FROM userDB where id = '${id}'`
+    const qre = `SELECT id, username, fprofile, fbanner 
+    FROM userDB as us
+    inner join profile as prof
+    on us.id = prof.userid
+    where id = '${id}';`
     const result = await query(qre)
     return result[1].rows
   },
