@@ -41,7 +41,7 @@ const userQuery = {
 
   updateProfile: async (profile) => {
     const { userid, fprofile, fbanner } = profile
-    const qre = `insert into profile (userid) values ('${userid}');`
+    const qre = `insert into profile (userid, fprofile, fbanner) values ('${userid}', '${fprofile}', '${fbanner}');`
     const result = await query(qre)
     return result[1]
   },
@@ -60,6 +60,18 @@ const userQuery = {
             WHERE userid = '${userid}';`
     const result = await query(qre)
     return result[1]
+  },
+
+  crearPerfil: async (userid, fprofile, fbanner) => {
+    const qre = `insert into profile (userid, fprofile, fbanner) values ('${userid}', '${fprofile}', '${fbanner}');`
+    const result = await query(qre)
+    return result[1]
+  },
+
+  traerAllUserId: async () => {
+    const qre = 'SELECT userid FROM profile;'
+    const result = await query(qre)
+    return result[1].rows
   }
 }
 

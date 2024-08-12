@@ -22,6 +22,7 @@ const userController = {
       const result = await userQuery.getUserById(id)
       if (result.length > 0) {
         res.status(200).json(result)
+        console.log(result)
       } else {
         throw new Error(`Usuario con id ${id} inexistente`)
       }
@@ -134,6 +135,34 @@ const userController = {
       res.status(200).json({
         Message: 'Avatar updated!!'
       })
+    } catch (error) {
+      res.status(404).json({
+        status: '404',
+        message: error.message
+      })
+    }
+  },
+
+  crearPerfiles: async (req, res) => {
+    try {
+      const resultWithUsersId = await userQuery.traerAllUserId()
+
+      console.log('lista usuarios')
+      ///console.log(resultWithUsersId)
+
+      //resultWithUsersId.forEach(async (element) => {
+      //const userid = element.id
+
+      //await userQuery.crearPerfil(userid, '', '')
+      //})
+
+      res.status(200).json({
+        Message: resultWithUsersId
+      })
+      // const result = await userQuery.updateProfile(profile)
+      // res.status(200).json({
+      //   Message: 'Profile created!!'
+      // })
     } catch (error) {
       res.status(404).json({
         status: '404',

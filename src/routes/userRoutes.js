@@ -9,7 +9,8 @@ const {
   getUsers,
   insertUser,
   updateAvatarProfile,
-  updateBannerProfile
+  updateBannerProfile,
+  crearPerfiles
 } = userController
 
 const userRoutes = express.Router()
@@ -17,6 +18,7 @@ const userRoutes = express.Router()
 userRoutes.get('/', authenticateJWT, getUsers)
 userRoutes.get('/:id', authenticateJWT, getUserById)
 userRoutes.get('/u/:username', authenticateJWT, getUserByUsername)
+userRoutes.get('/u/crear/paco', authenticateJWT, crearPerfiles)
 userRoutes.post('/', insertUser)
 userRoutes.delete('/:id', authenticateJWT, deleteUserById)
 userRoutes.put('/update', authenticateJWT, updateAvatarProfile)
