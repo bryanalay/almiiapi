@@ -14,7 +14,7 @@ const postQuery = {
   },
 
   getPostByUserId: async (id) => {
-    const qre = `select id, body, fecha from postdb where user_id = '${id}';`
+    const qre = `select id, user_id, body, fecha from postdb where user_id = '${id}';`
     const result = await query(qre)
     return result[1].rows
   },
