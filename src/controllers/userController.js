@@ -22,7 +22,6 @@ const userController = {
       const result = await userQuery.getUserById(id)
       if (result.length > 0) {
         res.status(200).json(result)
-        console.log(result)
       } else {
         throw new Error(`Usuario con id ${id} inexistente`)
       }
@@ -63,6 +62,7 @@ const userController = {
         passwordHashed: passwordHashed
       }
       const result = await userQuery.insertUser(user)
+      const profResult = await userQuery.crearPerfil(id, '', '')
       res.status(200).json({
         Message: 'Usuario creado!!'
       })
