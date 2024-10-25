@@ -9,11 +9,13 @@ import { sensorRoutes } from './routes/sensorRoutes.js'
 import { homeRoutes } from './routes/homeRoutes.js'
 import { commentsRouter } from './routes/commentsRoutes.js'
 import { tagsRoutes } from './routes/tagsRoutes.js'
+import { chatRoute } from './routes/chatRoute.js'
 
 const router = (app) => {
   const route = express.Router()
   const routev2 = express.Router()
   app.use('/api/v1', route)
+  route.use('/chat', chatRoute)
   route.use('/', homeRoutes)
   route.use('/login', loginRoutes)
   route.use('/user', userRoutes)

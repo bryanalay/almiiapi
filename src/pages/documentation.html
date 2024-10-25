@@ -29,47 +29,92 @@
       .endpoint .description {
         color: #777;
       }
+      pre{
+        width: 75%;
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
     </style>
   </head>
   <body>
     <h1>Documentación de la API</h1>
-
     <div class="endpoint">
-      <h2>Endpoint 1</h2>
-      <p class="method">GET</p>
-      <p class="description">Descripción del endpoint 1.</p>
+      <p class="method">GET /api/v1/posts</p>
+      <p class="description">Retorna todos los posts</p>
+      <h2>Headers:</h2>
+        <pre>
+          {
+            "authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiJncFRnIiwidXNlcm5hbWUiOiJ1c2VyIiwicGFzc3dvcmQiOiIkMmIkMDUkSHZnOWdGT1diR3pqVzJiZFg1RHFadUJRbi5UOWIzOWt1Q0dqcHhRaVA4MXZLTTROb2wybTYiLCJpYXQiOjE3MTY3NTM4NTF9.wnitTmaiFoRzD6sfF57L2Em_YE116LjIi_oJZM8pqTo"
+          }
+        </pre>
+      </p>
       <p>Parámetros:</p>
       <ul>
-        <li>param1: valor del parámetro 1</li>
-        <li>param2: valor del parámetro 2</li>
+        Ninguno
       </ul>
       <p>Respuesta:</p>
       <pre>
-      {
-        "response": "..."
-      }
+      [
+        {
+          "id": "khg1UD",
+          "user_id": "vfZv",
+          "body": "Comentario de ejemplo 1",
+          "fecha": "2024-08-25 20:33:38+00",
+          "username": "papaya",
+          "likes": [
+            "admin",
+            ""
+          ]
+        },
+        {
+          "id": "LSOaya",
+          "user_id": "vfZv",
+          "body": "Comentario de ejemplo 2",
+          "fecha": "2024-08-25 20:33:35+00",
+          "username": "papaya",
+          "likes": null
+        },
+        {...},
+        {...},
+        {...}
+      ]
     </pre
       >
     </div>
 
     <div class="endpoint">
-      <h2>Endpoint 2</h2>
-      <p class="method">POST</p>
-      <p class="description">Descripción del endpoint 2.</p>
+      <p class="method">GET /api/v1/like</p>
+      <p class="description">Retorna todos los likes de todos los posts</p>
+      <h2>Headers:</h2>
+        <pre>
+          {
+            "authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiJncFRnIiwidXNlcm5hbWUiOiJ1c2VyIiwicGFzc3dvcmQiOiIkMmIkMDUkSHZnOWdGT1diR3pqVzJiZFg1RHFadUJRbi5UOWIzOWt1Q0dqcHhRaVA4MXZLTTROb2wybTYiLCJpYXQiOjE3MTY3NTM4NTF9.wnitTmaiFoRzD6sfF57L2Em_YE116LjIi_oJZM8pqTo"
+          }
+        </pre>
       <p>Parámetros:</p>
       <ul>
-        <li>param1: valor del parámetro 1</li>
-        <li>param2: valor del parámetro 2</li>
+        Ninguno
       </ul>
       <p>Respuesta:</p>
       <pre>
-      {
-        "response": "..."
-      }
+      [
+        {
+          "user_id": "vfZv",
+          "post_id": "lYsWcw"
+        },
+        {
+          "user_id": "vfZv",
+          "post_id": "29hxFI"
+        },
+        {...},
+        {...},
+        {...}
+      ]
     </pre
       >
     </div>
 
-    <!-- Agrega más divs con la estructura de cada endpoint -->
   </body>
 </html>
