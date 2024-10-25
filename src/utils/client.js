@@ -1,9 +1,6 @@
 import './socketio.js'
 
-const HOST_SOCKET = process.env.HOST_SOCKET
-
-const socket = io(HOST_SOCKET)
-console.log('este es host_socket de env ' + HOST_SOCKET)
+const socket = io('https://almiapi.onrender.com/')
 
 const form = document.getElementById('form')
 const input = document.getElementById('input')
