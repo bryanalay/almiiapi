@@ -1,2 +1,6 @@
 # almiiapi
-Estoy por usar sp en vez de los queries
+
+
+# nuevo chat con websocket
+
+https://almiapi.onrender.com/api/v1/chat
